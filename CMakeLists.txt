@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(main)
+project(imgGen)
 
-add_executable(main main.cpp)
+add_executable(imgGen imgGen.cpp)
 
-install(TARGETS main)
+install(TARGETS imgGen)
 
 enable_testing()
-add_test(NAME main COMMAND main)
+add_test(NAME imgGen COMMAND imgGen)
 
 
 IF (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	target_link_libraries(main -static)
+	target_link_libraries(imgGen -static)
 ENDIF()
