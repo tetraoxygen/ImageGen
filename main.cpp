@@ -29,7 +29,9 @@ void createImage(unsigned char image[][WIDTH], int height) {
 	
 	
 	drawRect(image, HEIGHT, 120, 20, 40, 20, 20);
-	//drawRect(image, HEIGHT, 240, 23, 42, 20, 20);
+	drawRect(image, HEIGHT, 223, 65, 24, 50, 20);
+	drawCircle(image, HEIGHT, 50, 50, 31, 0);
+	drawCircle(image, HEIGHT, 72, 143, 42, 0);
 }
 
 void drawRect(unsigned char image[][WIDTH], int imgHeight, int rectTop, int rectLeft, int rectHeight, int rectWidth, unsigned char grayLevel) {
@@ -42,6 +44,33 @@ void drawRect(unsigned char image[][WIDTH], int imgHeight, int rectTop, int rect
 	for (int verticalPosition = rectTop; verticalPosition < rectTop + rectHeight; verticalPosition++) {
 		image[verticalPosition][rectLeft] = grayLevel;
 		image[verticalPosition][rectLeft + rectWidth - 1] = grayLevel;
+	}
+}
+
+void drawCircle(unsigned char image[][WIDTH], int height, int centerX, int centerY, int radius, unsigned char grayLevel) {
+	int x = radius;
+	int y = 0;
+	int err = 0;
+ 
+	while (x >= y) {
+		image[centerY + y][centerX + x] = grayLevel;
+		image[centerY + x][centerX + y] = grayLevel;
+		image[centerY + x][centerX - y] = grayLevel;
+		image[centerY + y][centerX - x] = grayLevel;
+		image[centerY - y][centerX - x] = grayLevel;
+		image[centerY - x][centerX - y] = grayLevel;
+		image[centerY - x][centerX + y] = grayLevel;
+		image[centerY - y][centerX + x] = grayLevel;
+	 
+		if (err <= 0) {
+			y += 1;
+			err += 2*y + 1;
+		}
+	 
+		if (err > 0) {
+			x -= 1;
+			err -= 2*x + 1;
+		}
 	}
 }
 
