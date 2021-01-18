@@ -134,7 +134,7 @@ int main()
 	// set array to white
 	Color image[HEIGHT][WIDTH];
 	createImage(image, HEIGHT);
-	writeImage(image, HEIGHT, "foo.ppm");
+	writeImage(image, HEIGHT, "Wildflowers.ppm");
 }
 
 // ------------------------------------------------------
