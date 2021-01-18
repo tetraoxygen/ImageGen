@@ -5,7 +5,7 @@
 	@version 1.0
 	
 	CS162-01 - Assignment 1.1
-		Generates image file in PGM format
+		Generates image file in PPM format
 	
 * ------------------------------------------------------------ */
 
@@ -154,7 +154,7 @@ void createImage(Color image[][WIDTH], int height) {
 	}
 
 	drawCircle(image, height, 256, 256, 90, red);
-	floodFill(image, 256, 256, image[256][256], red);
+	//floodFill(image, 256, 256, image[256][256], red);
 	
 	// Flower
 	bezier(image, Coords(238, 263), Coords(233, 272), Coords(225, 293), Coords(225, 304), white);
