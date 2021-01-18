@@ -281,7 +281,6 @@ void drawCircle(Color image[][WIDTH], int height, int centerX, int centerY, int 
 // ------------------------------------------------------
 
 void floodFill(Color image[][WIDTH], int x,int y, Color oldColor, Color newColor) {
-	std::cout << "x: " << x << " y: " << y << std::endl;
 	if((image[x][y].red == oldColor.red) && (image[x][y].green == oldColor.green) && (image[x][y].blue == oldColor.blue)) {
 		image[x][y] = newColor;
 		if (x + 1 < WIDTH-1) floodFill(image, x+1,y, oldColor, newColor);
