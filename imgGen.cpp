@@ -286,8 +286,8 @@ void drawCircle(Color image[][WIDTH], int height, int centerX, int centerY, int 
 void floodFill(Color image[][WIDTH], int x,int y, Color oldColor, Color newColor) {
 	if((image[x][y].red == oldColor.red) && (image[x][y].green == oldColor.green) && (image[x][y].blue == oldColor.blue)) {
 		image[x][y] = newColor;
-		if (x + 1 < WIDTH-1) floodFill(image, x+1,y, oldColor, newColor);
-		if (y + 1 < HEIGHT-1) floodFill(image, x,y+1, oldColor, newColor);
+		if (x + 1 < WIDTH) floodFill(image, x+1,y, oldColor, newColor);
+		if (y + 1 < HEIGHT) floodFill(image, x,y+1, oldColor, newColor);
 		if (x - 1 > 0) floodFill(image, x-1,y, oldColor, newColor);
 		if (y - 1 > 0) floodFill(image, x,y-1, oldColor, newColor);
 	}
