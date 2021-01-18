@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cassert>
 
 const int HEIGHT = 512;
 const int WIDTH = 512;
@@ -132,7 +133,7 @@ void bezier(Color image[][WIDTH], Coords coords1, Coords coords2, Coords coords3
 int main()
 {
 	// set array to white
-	Color image[HEIGHT][WIDTH];
+	static Color image[HEIGHT][WIDTH];
 	createImage(image, HEIGHT);
 	writeImage(image, HEIGHT, "Wildflowers.ppm");
 }
@@ -154,7 +155,7 @@ void createImage(Color image[][WIDTH], int height) {
 	}
 
 	drawCircle(image, height, 256, 256, 90, red);
-	//floodFill(image, 256, 256, image[256][256], red);
+	floodFill(image, 256, 256, image[256][256], red);
 	
 	// Flower
 	bezier(image, Coords(238, 263), Coords(233, 272), Coords(225, 293), Coords(225, 304), white);
@@ -236,6 +237,8 @@ void createImage(Color image[][WIDTH], int height) {
 // ------------------------------------------------------
 
 void drawRect(Color image[][WIDTH], int imgHeight, int rectTop, int rectLeft, int rectHeight, int rectWidth, Color color) {
+	assert (rectLeft + rectWidth < WIDTH);
+	assert (rectTop + rectHeight < HEIGHT);
 	// Draws the top and bottom line of the rectangle
 	for (int horizontalPosition = rectLeft; horizontalPosition < rectLeft + rectWidth; horizontalPosition++) {
 		image[rectTop][horizontalPosition] = color;
