@@ -21,6 +21,18 @@ struct Color {
 	unsigned char red;
 	unsigned char blue;
 	unsigned char green;
+	
+	Color() {
+		red = 0;
+		blue = 0;
+		green = 0;
+	}
+	
+	Color(int r_, int g_, int b_) {
+		red = static_cast<char>(r_);
+		green = static_cast<char>(g_);
+		blue = static_cast<char>(b_);
+	}
 };
 
 struct Coords {
@@ -129,11 +141,11 @@ int main()
 
 void createImage(Color image[][WIDTH], int height) {
 	// Initializes the image to a blank white background
-	Color red = { .red = 163, .green = 66, .blue = 58 };
-	Color white = { .red = 255, .green = 255, .blue = 255 };
-	Color yellow = { .red = 224, .green = 175, .blue = 113 };
-	Color brown = { .red = 149, .green = 130, .blue = 100 };
-	Color black = { .red = 0, .green = 0, .blue = 0 };
+	Color red = Color(163, 66, 58);
+	Color white = Color(255, 255, 255);
+	Color yellow = Color(224, 175, 113);
+	Color brown = Color(149, 130, 100);
+	Color black = Color(0, 0, 0);
 	
 	for (int row = 0; row < WIDTH; row++) {
 		for (int column = 0; column < height; column++) {
@@ -298,73 +310,70 @@ bool writeImage(const Color image[][WIDTH], int height, const std::string fileNa
 	return true;
 }
 
-int getPt( int n1 , int n2 , float perc );
-{
+int getPt( int n1 , int n2 , float perc ) {
 	int diff = n2 - n1;
 
 	return n1 + ( diff * perc );
 }
 
 void bezier(Color image[][WIDTH], Coords coords1, Coords coords2, Coords coords3, Color color) {
-int x = 0;
-int y = 0;
-int ya = 0;
-int yb = 0;
-int xa = 0;
-int xb = 0;
-
-for( float i = 0 ; i < 1 ; i += 0.01 )
-{
-	// The Green Line
-	xa = getPt(coords1.x, coords2.x, i);
-	ya = getPt(coords1.y, coords2.y, i);
-	xb = getPt(coords2.x, coords3.x, i);
-	yb = getPt(coords2.y, coords3.y, i);
-
-	// The Black Dot
-	x = getPt(xa,xb,i);
-	y = getPt(ya,yb,i);
-
-	image[y][x] = color;
-}
+	int x = 0;
+	int y = 0;
+	int ya = 0;
+	int yb = 0;
+	int xa = 0;
+	int xb = 0;
+	
+	for( float i = 0 ; i < 1 ; i += 0.01 ) {
+		// The Green Line
+		xa = getPt(coords1.x, coords2.x, i);
+		ya = getPt(coords1.y, coords2.y, i);
+		xb = getPt(coords2.x, coords3.x, i);
+		yb = getPt(coords2.y, coords3.y, i);
+	
+		// The Black Dot
+		x = getPt(xa,xb,i);
+		y = getPt(ya,yb,i);
+	
+		image[y][x] = color;
+	}
 }
 
 void bezier(Color image[][WIDTH], Coords coords1, Coords coords2, Coords coords3, Coords coords4, Color color) {
 
-int x;
-int y;
-int ya;
-int yb;
-int yc;
-int xa;
-int xb;
-int xc;
+	int x;
+	int y;
+	int ya;
+	int yb;
+	int yc;
+	int xa;
+	int xb;
+	int xc;
+	
+	int ym;
+	int xm;
+	int yn;
+	int xn;
 
-int ym;
-int xm;
-int yn;
-int xn;
-
-for( float i = 0 ; i < 1 ; i += 0.01 )
-{
-	// The Green Lines
-	xa = getPt( coords1.x , coords2.x , i );
-	ya = getPt( coords1.y , coords2.y , i );
-	xb = getPt( coords2.x , coords3.x , i );
-	yb = getPt( coords2.y , coords3.y , i );
-	xc = getPt( coords3.x , coords4.x , i );
-	yc = getPt( coords3.y , coords4.y, i );
-
-	// The Blue Line
-	xm = getPt( xa , xb , i );
-	ym = getPt( ya , yb , i );
-	xn = getPt( xb , xc , i );
-	yn = getPt( yb , yc , i );
-
-	// The Black Dot
-	x = getPt( xm , xn , i );
-	y = getPt( ym , yn , i );
-
-	image[y][x] = color;
-}
+	for (float i = 0 ; i < 1 ; i += 0.01){
+		// The Green Lines
+		xa = getPt( coords1.x , coords2.x , i );
+		ya = getPt( coords1.y , coords2.y , i );
+		xb = getPt( coords2.x , coords3.x , i );
+		yb = getPt( coords2.y , coords3.y , i );
+		xc = getPt( coords3.x , coords4.x , i );
+		yc = getPt( coords3.y , coords4.y, i );
+	
+		// The Blue Line
+		xm = getPt( xa , xb , i );
+		ym = getPt( ya , yb , i );
+		xn = getPt( xb , xc , i );
+		yn = getPt( yb , yc , i );
+	
+		// The Black Dot
+		x = getPt( xm , xn , i );
+		y = getPt( ym , yn , i );
+	
+		image[y][x] = color;
+	}
 }
